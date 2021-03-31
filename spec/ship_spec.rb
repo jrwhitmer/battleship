@@ -23,6 +23,10 @@ describe Ship do
   it 'can tell us if it has sunk' do
     cruiser = Ship.new('Cruiser', 3)
     expect(cruiser.sunk?).to eq(false)
+    cruiser.hit
+    cruiser.hit
+    cruiser.hit
+    expect(cruiser.sunk?).to eq(true)
   end
 
   it 'can get hit' do
