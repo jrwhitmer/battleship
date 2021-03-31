@@ -15,4 +15,9 @@ describe Ship do
     cruiser = Ship.new('Cruiser', 3)
     expect(cruiser.length).to eq(3)
   end
+
+  it 'can tell us its health' do
+    cruiser = Ship.new('Cruiser', 3)
+    expect(cruiser.health).to eq(3)
+  end
 end
