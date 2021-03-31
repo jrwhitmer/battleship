@@ -20,6 +20,13 @@ describe Ship do
     cruiser = Ship.new('Cruiser', 3)
     expect(cruiser.health).to eq(3)
   end
+
+  it 'can get hit' do
+    cruiser = Ship.new('Cruiser', 3)
+    cruiser.hit
+    expect(cruiser.health).to eq(2)
+  end
+
   it 'can tell us if it has sunk' do
     cruiser = Ship.new('Cruiser', 3)
     expect(cruiser.sunk?).to eq(false)
@@ -28,10 +35,5 @@ describe Ship do
     cruiser.hit
     expect(cruiser.sunk?).to eq(true)
   end
-
-  it 'can get hit' do
-    cruiser = Ship.new('Cruiser', 3)
-    cruiser.hit
-    expect(cruiser.health).to eq(2)
-  end
+  
 end
