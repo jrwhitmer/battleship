@@ -57,4 +57,10 @@ describe Cell do
     cell.fire_upon
     expect(cell.fired_upon?).to eq(true)
   end
+
+  it 'can render the cell' do
+    cell_1 = Cell.new("B4")
+
+    expect(cell_1.render).to eq(".")
+  end
 end

@@ -27,4 +27,10 @@ class Cell
     ship.hit
     @fired_upon = true
   end
+
+  def render
+    if fired_upon? == false
+       "."
+     end 
+  end
 end
