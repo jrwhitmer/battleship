@@ -25,5 +25,6 @@ class Cell
 
   def fire_upon
     ship.hit
+    @fired_upon = true
   end
 end
