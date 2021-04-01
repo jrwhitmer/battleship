@@ -37,4 +37,24 @@ describe Cell do
     expect(cell.empty?).to eq(false)
   end
 
+
+  it 'can be fired upon' do
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+    cell.fire_upon
+
+    expect(cell.ship.health).to eq(2)
+  end
+
+  it 'can tell if it has been fired upon' do
+    cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
+
+    expect(cell.fired_upon?).to eq(false)
+
+    cell.fire_upon
+    expect(cell.fired_upon?).to eq(true)
+  end
 end
