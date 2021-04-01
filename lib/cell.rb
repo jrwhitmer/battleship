@@ -37,6 +37,8 @@ class Cell
       "."
     elsif fired_upon? && empty?
       "M"
+    elsif fired_upon? && empty? == false
+      "H"
     end
   end
 end
