@@ -37,8 +37,11 @@ class Cell
       "."
     elsif fired_upon? && empty?
       "M"
+    elsif fired_upon? && empty? == false && @ship.sunk?
+      "X"
     elsif fired_upon? && empty? == false
       "H"
+
     end
   end
 end
