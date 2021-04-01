@@ -58,9 +58,18 @@ describe Cell do
     expect(cell.fired_upon?).to eq(true)
   end
 
-  it 'can render the cell' do
-    cell_1 = Cell.new("B4")
+  describe '#render' do
+    it 'can render when the cell has not been fired upon' do
+      cell_1 = Cell.new("B4")
 
-    expect(cell_1.render).to eq(".")
+      expect(cell_1.render).to eq(".")
+    end
+
+    it 'can render when the cell has been fired upon and misses' do
+      cell_1 = Cell.new("B4")
+      cell_1.fire_upon
+
+      expect(cell_1.render).to eq("M")
+    end
   end
 end
