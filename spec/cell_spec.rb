@@ -79,5 +79,13 @@ describe Cell do
 
       expect(cell_2.render).to eq(".")
     end
+
+    it 'can render with an optional ship visibility' do
+      cell_2 = Cell.new("C3")
+      cruiser = Ship.new("Cruiser", 3)
+      cell_2.place_ship(cruiser)
+
+      expect(cell_2.render(true)).to eq("S")
+    end
   end
 end

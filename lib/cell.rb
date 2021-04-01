@@ -30,11 +30,13 @@ class Cell
     @fired_upon = true
   end
 
-  def render
-    if fired_upon? == false
-       "."
-     elsif fired_upon? && empty?
-       "M"
-     end
+  def render(visibility = false)
+    if visibility && fired_upon? == false
+      "S"
+    elsif fired_upon? == false
+      "."
+    elsif fired_upon? && empty?
+      "M"
+    end
   end
 end
