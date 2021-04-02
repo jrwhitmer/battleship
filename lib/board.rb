@@ -1,5 +1,5 @@
-require './cell'
-require './ship'
+require './lib/ship'
+require './lib/cell'
 
 class Board
   attr_reader :cells
@@ -29,7 +29,21 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
+  # def consecutive?(ship, coordinates)
+  #   consecutives = coordinates.each_cons(ship.length)
+  #   consecutives.length == ship.length
+  # end
+
+  def valid_length?(ship, coordinates)
+    # why can't we access the instance variable itself-- @length here?
+    ship.length == coordinates.length
+  end
+
   def valid_placement?(ship, coordinates)
-    @length == coordinates.length
+    if valid_length?(ship, coordinates)
+      return true
+    else
+      return false
+    end
   end
 end
