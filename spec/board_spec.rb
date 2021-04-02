@@ -1,4 +1,5 @@
 require './lib/board'
+require './lib/cell'
 require 'RSpec'
 
 describe 'Board' do
@@ -9,4 +10,12 @@ describe 'Board' do
     expect(board).to be_instance_of(Board)
   end
 
-end 
+  it 'can have cells' do
+    board = Board.new
+
+    expect(board.cells.length).to eq(16)
+    expect(board.cells.values.first).to be_instance_of(Cell)
+
+  end
+
+end
