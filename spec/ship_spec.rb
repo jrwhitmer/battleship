@@ -34,7 +34,6 @@ describe Ship do
 
   it 'can tell us if it has sunk' do
     cruiser = Ship.new('Cruiser', 3)
-    # Possible Refactor: Do we need two tests?
     expect(cruiser.sunk?).to eq(false)
     cruiser.hit
     cruiser.hit
