@@ -33,6 +33,7 @@ describe Cell do
     cruiser = Ship.new("Cruiser", 3)
     cell.place_ship(cruiser)
 
+    #Possible refactor: Does this need to be two tests?
     expect(cell.ship).to eq(cruiser)
     expect(cell.empty?).to eq(false)
   end
@@ -44,6 +45,7 @@ describe Cell do
     cell.place_ship(cruiser)
     cell.fire_upon
 
+    # Possible refactor: Law of Demeter violation?
     expect(cell.ship.health).to eq(2)
   end
 
@@ -52,6 +54,7 @@ describe Cell do
     cruiser = Ship.new("Cruiser", 3)
     cell.place_ship(cruiser)
 
+    # Possible Refactor: does this need to be two tests?
     expect(cell.fired_upon?).to eq(false)
 
     cell.fire_upon
@@ -107,7 +110,8 @@ describe Cell do
 
       cruiser.hit
       cruiser.hit
-
+      # Possible Refactor: Do we need 3 separate tests?
+      # Possible Refactor: This test/method needs to change to accommodate multiple cells being fired upon to sink the ship 
       expect(cruiser.sunk?).to eq(true)
       expect(cell_2.render).to eq("X")
     end

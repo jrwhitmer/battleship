@@ -31,6 +31,7 @@ class Cell
   end
 
   def render(visibility = false)
+    # Possible refactor: create methods for conditional statements for legibility
     if visibility && fired_upon? == false
       "S"
     elsif fired_upon? == false
