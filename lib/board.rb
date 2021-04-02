@@ -1,4 +1,6 @@
 require './cell'
+require './ship'
+
 class Board
   attr_reader :cells
 
@@ -26,5 +28,8 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
-  
+
+  def valid_placement?(ship, coordinates)
+    @length == coordinates.length
+  end
 end
