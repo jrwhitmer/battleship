@@ -30,19 +30,33 @@ class Cell
     @fired_upon = true
   end
 
+  def render_not_fired_upon?
+    fired_upon? == false
+  end
+
+  def render_miss?
+    fired_upon? && empty?
+  end
+
+  def render_sunk?
+    fired_upon? && empty? == false && @ship.sunk?
+  end
+
+  def render_hit?
+    fired_upon? && empty? == false
+  end
+
   def render(visibility = false)
-    # Possible refactor: create methods for conditional statements for legibility
     if visibility && fired_upon? == false
       "S"
-    elsif fired_upon? == false
+    elsif render_not_fired_upon?
       "."
-    elsif fired_upon? && empty?
+    elsif render_miss?
       "M"
-    elsif fired_upon? && empty? == false && @ship.sunk?
+    elsif render_sunk?
       "X"
-    elsif fired_upon? && empty? == false
+    elsif render_hit?
       "H"
-
     end
   end
 end
