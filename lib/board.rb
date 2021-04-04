@@ -78,13 +78,20 @@ class Board
     end
   end
 
+  def no_overlap?(coordinates)
+    empty_coordinates = coordinates.find_all do |coordinate|
+      cells[coordinate].empty?
+    end
+    empty_coordinates == coordinates
+  end
+
   def valid_length?(ship, coordinates)
     # why can't we access the instance variable itself-- @length here?
     ship.length == coordinates.length
   end
 
   def valid_placement?(ship, coordinates)
-    valid_length?(ship, coordinates) && consecutive?(ship, coordinates) && not_diagonal?(ship, coordinates)
+    valid_length?(ship, coordinates) && consecutive?(ship, coordinates) && not_diagonal?(ship, coordinates) && no_overlap?(coordinates)
   end
 
   def place(ship, coordinates)
