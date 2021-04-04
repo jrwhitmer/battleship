@@ -25,7 +25,7 @@ class Board
 
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
-  end 
+  end
 
   def consecutive_letters?(ship, coordinates)
     ordinate_values = coordinates.map do |coordinate|
@@ -85,6 +85,16 @@ class Board
 
   def valid_placement?(ship, coordinates)
     valid_length?(ship, coordinates) && consecutive?(ship, coordinates) && not_diagonal?(ship, coordinates)
+  end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
+        cells[coordinate].place_ship(ship)
+      end
+    else
+      "This is not a valid placement for this ship!"
+    end
   end
 
 end
