@@ -1,9 +1,7 @@
-require './lib/ship'
-require './lib/cell'
-
+require './cell'
 class Board
-  attr_reader :cells,
-              :coordinate_numbers
+  attr_reader :cells
+
   def initialize
     @cells = {
       "A1" => Cell.new("A1"),
@@ -23,12 +21,11 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4"),
     }
-    @coordinate_numbers = nil
   end
 
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
-  end
+  end 
 
   def consecutive_letters?(ship, coordinates)
     ordinate_values = coordinates.map do |coordinate|
@@ -89,4 +86,5 @@ class Board
   def valid_placement?(ship, coordinates)
     valid_length?(ship, coordinates) && consecutive?(ship, coordinates) && not_diagonal?(ship, coordinates)
   end
+
 end

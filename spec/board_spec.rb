@@ -1,6 +1,5 @@
 require './lib/board'
 require './lib/cell'
-require './lib/ship'
 require 'RSpec'
 
 describe 'Board' do
@@ -24,6 +23,7 @@ describe 'Board' do
     expect(board.valid_coordinate?("A1")).to eq(true)
     expect(board.valid_coordinate?("A5")).to eq(false)
   end
+
 
   context 'can tell us if ship is correctly placed' do
     it 'can test if the number of coordinates is equal to the length of the ship' do
@@ -64,4 +64,5 @@ describe 'Board' do
       expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
     end
   end
+
 end
