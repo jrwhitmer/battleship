@@ -73,12 +73,20 @@ class Board
     consecutive_letters?(ship, coordinates) || consecutive_numbers?(ship, coordinates)
   end
 
+  def not_diagonal?(ship, coordinates)
+    if consecutive_letters?(ship, coordinates) && consecutive_numbers?(ship, coordinates)
+      false
+    else
+      true
+    end
+  end
+
   def valid_length?(ship, coordinates)
     # why can't we access the instance variable itself-- @length here?
     ship.length == coordinates.length
   end
 
   def valid_placement?(ship, coordinates)
-    valid_length?(ship, coordinates) && consecutive?(ship, coordinates)
+    valid_length?(ship, coordinates) && consecutive?(ship, coordinates) && not_diagonal?(ship, coordinates)
   end
 end
