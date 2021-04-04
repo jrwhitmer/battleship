@@ -48,6 +48,8 @@ class Board
     @coordinate_numbers = split_coordinates.find_all do |split_coordinate|
       split_coordinate.to_i >= 1
     end
+    @coordinate_numbers.flatten!
+
     @coordinate_numbers = @coordinate_numbers.map do |coordinate_number|
       coordinate_number.to_i
     end
@@ -55,8 +57,15 @@ class Board
 
   def consecutive_numbers?(ship, coordinates)
     grab_numbers_from_coordinates(coordinates)
-    @coordinate_numbers.each_cons(ship.length).all? do |coordinate, next_coordinate|
+    if ship.length == 3
+    @coordinate_numbers.each_cons(3).all? do |coordinate, next_coordinate, last_coordinate|
       next_coordinate == coordinate + 1
+      last_coordinate == next_coordinate + 1
+    end
+    elsif ship.length == 2
+      @coordinate_numbers.each_cons(2).all? do |coordinate, next_coordinate|
+        next_coordinate == coordinate + 1
+      end
     end
   end
 
