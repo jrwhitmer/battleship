@@ -1,9 +1,7 @@
-require './lib/ship'
-require './lib/cell'
-
+require './cell'
 class Board
-  attr_reader :cells,
-              :coordinate_numbers
+  attr_reader :cells
+
   def initialize
     @cells = {
       "A1" => Cell.new("A1"),
@@ -23,53 +21,10 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4"),
     }
-    @coordinate_numbers = nil
   end
 
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
-
-  def consecutive_letters?(ship, coordinates)
-    ordinate_values = coordinates.map do |coordinate|
-      coordinate.ord
-    end
-    ordinate_values.each_cons(ship.length).all? do |coordinate, next_coordinate|
-      next_coordinate == coordinate + 1
-    end
-  end
-
-  def grab_numbers_from_coordinates(coordinates)
-    split_coordinates = coordinates.map do |coordinate|
-      coordinate.split("")
-    end
-    split_coordinates.flatten!
-
-    @coordinate_numbers = split_coordinates.find_all do |split_coordinate|
-      split_coordinate.to_i >= 1
-    end
-    @coordinate_numbers = @coordinate_numbers.map do |coordinate_number|
-      coordinate_number.to_i
-    end
-  end
-
-  def consecutive_numbers?(ship, coordinates)
-    grab_numbers_from_coordinates(coordinates)
-    @coordinate_numbers.each_cons(ship.length).all? do |coordinate, next_coordinate|
-      next_coordinate == coordinate + 1
-    end
-  end
-
-  def consecutive?(ship, coordinates)
-    consecutive_letters?(ship, coordinates) || consecutive_numbers?(ship, coordinates)
-  end
-
-  def valid_length?(ship, coordinates)
-    # why can't we access the instance variable itself-- @length here?
-    ship.length == coordinates.length
-  end
-
-  def valid_placement?(ship, coordinates)
-    valid_length?(ship, coordinates) && consecutive?(ship, coordinates)
-  end
+  
 end
