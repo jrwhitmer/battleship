@@ -1,27 +1,36 @@
-require './ship'
-require './cell'
-require './board'
+require './lib/ship'
+require './lib/cell'
+require './lib/board'
 
 
 class Game
 
-  def initialize(turns)
+  attr_reader :player_board,
+              :computer_board
+  def initialize
     @turns = []
     @player_board = Board.new
     @computer_board = Board.new
   end
 
   def player_place_cruiser(cruiser, coordinates)
-    cruiser = Ship.new("Cruiser", 3)
-    @player_board.place(cruiser, gets.chomp)
+    @player_board.place(cruiser, coordinates)
   end
 
-  def computer_place_cruiser(cruiser, coordinates)
-    cruiser = Ship.new("Cruiser", 3)
-    until coordinates.board.valid_placement?
-    coordinates = @computer_board.cells.keys.sample(3)
-    end
-    @computer_board.place(cruiser, coordinates)
+  #def computer_place_cruiser(cruiser, coordinates)
+    #cruiser = Ship.new("Cruiser", 3)
+    #until coordinates.board.valid_placement?
+    #coordinates = @computer_board.cells.keys.sample(3)
+    #end
+    #@computer_board.place(cruiser, coordinates)
+  #end
+
+  def display_player_board_for_player
+    @player_board.render(true)
   end
+
+  #def display_computer_board_for_player
+  #  @computer_board.render
+  #end
 
 end
