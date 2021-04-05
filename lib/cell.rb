@@ -47,7 +47,7 @@ class Cell
   end
 
   def render(visibility = false)
-    if visibility && fired_upon? == false
+    if visibility && fired_upon? == false && empty? == false
       "S"
     elsif render_not_fired_upon?
       "."
