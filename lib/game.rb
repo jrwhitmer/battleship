@@ -29,12 +29,23 @@ class Game
 
   def player_place_cruiser(cruiser, coordinates)
     coordinates = coordinates.split
+    # Why does this print "This is not a valid placement" when condition is not true?
+    while @player_board.place(cruiser, coordinates) == "This is not a valid placement for this ship!"
+      puts "Try again."
+      coordinates = gets.chomp
+      coordinates = coordinates.split
+    end
     @player_board.place(cruiser, coordinates)
     display_player_board_for_player
   end
 
   def player_place_submarine(submarine, coordinates)
     coordinates = coordinates.split
+    while @player_board.place(submarine, coordinates) == "This is not a valid placement for this ship!"
+      puts "Try again."
+      coordinates = gets.chomp
+      coordinates = coordinates.split
+    end
     @player_board.place(submarine, coordinates)
     display_player_board_for_player
   end
