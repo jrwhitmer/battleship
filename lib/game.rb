@@ -27,24 +27,36 @@ class Game
     end
   end
 
-  #def player_place_cruiser(cruiser, coordinates)
-  #  @player_board.place(cruiser, coordinates)
-  #end
+  def player_place_cruiser(cruiser, coordinates)
+    coordinates = coordinates.split
+    @player_board.place(cruiser, coordinates)
+    display_player_board_for_player
+  end
 
-  #def computer_place_cruiser(cruiser, coordinates)
-    #cruiser = Ship.new("Cruiser", 3)
-    #until coordinates.board.valid_placement?
-    #coordinates = @computer_board.cells.keys.sample(3)
-    #end
-    #@computer_board.place(cruiser, coordinates)
-  #end
+  def player_place_submarine(submarine, coordinates)
+    coordinates = coordinates.split
+    @player_board.place(submarine, coordinates)
+    display_player_board_for_player
+  end
 
-  #def display_player_board_for_player
-  #  @player_board.render(true)
-  #end
+  def computer_place_cruiser(cruiser, coordinates)
+    cruiser = Ship.new("Cruiser", 3)
+    until coordinates.board.valid_placement?
+    coordinates = @computer_board.cells.keys.sample(3)
+    end
+    @computer_board.place(cruiser, coordinates)
+  end
 
-  #def display_computer_board_for_player
-  #  @computer_board.render
-  #end
+  def computer_place_submarine(submarine, coordinates)
+
+  end
+
+  def display_player_board_for_player
+    puts @player_board.render(true)
+  end
+
+  def display_computer_board_for_player
+    puts @computer_board.render
+  end
 
 end
