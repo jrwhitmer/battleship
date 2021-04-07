@@ -59,21 +59,4 @@ end
 
 turn.end_game
 
-# We will need for the end game; a conditional if both of one players ships are sunk, the end game is triggered and it will return You won or I won!
-
-
 end
-
-
-
-
-
-
-
-
-#game.player_place_cruiser(player_cruiser, gets.chomp)
-#p game.display_player_board_for_player
-
-#require 'pry'; binding.pry
-#game.computer_place_cruiser
-#game.display_computer_board_for_player

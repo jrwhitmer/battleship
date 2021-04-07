@@ -21,6 +21,7 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4"),
     }
+    @coordinate_numbers = []
   end
 
   def valid_coordinate?(coordinate)
@@ -31,15 +32,27 @@ class Board
     ordinate_values = coordinates.map do |coordinate|
       coordinate.ord
     end
-    ordinate_values.all? do |value|
-      value == 65 || 66 || 67 || 68
+    if ship.length == 2
+      ordinate_values.each_cons(2).all? do |value, next_value|
+      value == next_value
+      end
+    elsif ship.length == 3
+      ordinate_values.each_cons(3).all? do |value, next_value, last_value|
+      value == next_value && next_value == last_value
+      end
     end
   end
 
   def same_numbers?(ship, coordinates)
     grab_numbers_from_coordinates(coordinates)
-    @coordinate_numbers.all? do |number|
-      number == 1 || 2 || 3 || 4
+    if ship.length == 2
+      @coordinate_numbers.each_cons(2).all? do |value, next_value|
+      value == next_value
+      end
+    elsif ship.length == 3
+      @coordinate_numbers.each_cons(3).all? do |value, next_value, last_value|
+      value == next_value && next_value == last_value
+      end
     end
   end
 
@@ -53,8 +66,7 @@ class Board
       end
     elsif ship.length == 3
       ordinate_values.each_cons(3).all? do |coordinate, next_coordinate, last_coordinate|
-        next_coordinate == coordinate + 1
-        last_coordinate == next_coordinate + 1
+        next_coordinate == coordinate + 1 && last_coordinate == next_coordinate + 1
       end
     end
   end
@@ -79,8 +91,7 @@ class Board
     grab_numbers_from_coordinates(coordinates)
     if ship.length == 3
     @coordinate_numbers.each_cons(3).all? do |coordinate, next_coordinate, last_coordinate|
-      next_coordinate == coordinate + 1
-      last_coordinate == next_coordinate + 1
+      next_coordinate == coordinate + 1 && last_coordinate == next_coordinate + 1
     end
     elsif ship.length == 2
       @coordinate_numbers.each_cons(2).all? do |coordinate, next_coordinate|
