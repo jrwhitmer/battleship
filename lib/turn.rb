@@ -8,6 +8,8 @@ class Turn
     @game = Game.new
     @player_shots = []
     @computer_shots = []
+    @player_ship_hits = []
+    @computer_ship_hits = []
   end
 
   def display_boards
@@ -24,13 +26,11 @@ class Turn
       coordinate = gets.chomp
     end
       @game.computer_board.cells[coordinate].fire_upon
+
     player_results(coordinate)
-    # if cruiser_sunk_check? || submarine_sunk_check?
-      # "You sunk a ship! Never again."
-    # end
-    # if end_game_check?
-      # end_game
-    # end
+    if @game.computer_board.cells[coordinate].render_hit?
+      @computer_ship_hits << coordinate
+    end
   end
 
   def computer_shot
@@ -44,13 +44,16 @@ class Turn
     @game.player_board.cells[coordinate].fire_upon
 
     computer_results(coordinate)
+    if @game.player_board.cells[coordinate].render_hit?
+      @player_ship_hits << coordinate
+    end
   end
 
   def player_results(coordinate)
     if @game.computer_board.cells[coordinate].render_miss?
       puts "Your shot on #{coordinate} was a miss."
     elsif @game.computer_board.cells[coordinate].render_hit?
-      if @game.computer_board.cells[coordinate].sunk?
+      if @game.computer_board.cells[coordinate].render_sunk?
         puts "Your shot on #{coordinate} sunk my ship."
       else
         puts "Your shot on #{coordinate} was a hit."
@@ -62,7 +65,7 @@ class Turn
     if @game.player_board.cells[coordinate].render_miss?
       puts "My shot on #{coordinate} was a miss."
     elsif @game.player_board.cells[coordinate].render_hit?
-      if @game.player_board.cells[coordinate].sunk?
+      if @game.player_board.cells[coordinate].render_sunk?
         puts "My shot on #{coordinate} sunk your ship."
       else
         puts "My shot on #{coordinate} was a hit."
@@ -70,17 +73,37 @@ class Turn
     end
   end
 
-  # def player_sunk_check?
-    # if @game.player_board.cells[coordinate].sunk?
-  # end
-  # def end_game_check?
-    # if player_sunk_check?
-      # end_game
-    # elsif computer_sunk_check?
-      # end_game
-    # end
-  # end
+  def player_sunk_check?
+    if @player_ship_hits.length == 5
+      true
+    else
+      false
+    end
+  end
+  def computer_sunk_check?
+    if @computer_ship_hits.length == 5
+      true
+    else
+      false
+    end
+  end
+
+  def end_game_check?
+    if player_sunk_check?
+      end_game
+      return true
+    elsif computer_sunk_check?
+      end_game
+      return true
+    else
+      return false
+    end
+  end
   def end_game
-    puts "Somebody won."
+    if player_sunk_check?
+      puts "You won!"
+    elsif computer_sunk_check?
+      puts "I won. Easily."
+    end
   end
 end
