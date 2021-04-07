@@ -51,24 +51,24 @@ class Turn
 
   def player_results(coordinate)
     if @game.computer_board.cells[coordinate].render_miss?
-      puts "Your shot on #{coordinate} was a miss."
+      puts "Your shot on #{coordinate} was a miss. Nya Nya Nya."
     elsif @game.computer_board.cells[coordinate].render_hit?
       if @game.computer_board.cells[coordinate].render_sunk?
-        puts "Your shot on #{coordinate} sunk my ship."
+        puts "Your shot on #{coordinate} sunk my ship. Is this what you humans call luck?"
       else
-        puts "Your shot on #{coordinate} was a hit."
+        puts "Your shot on #{coordinate} was a hit. All a part of my plan."
       end
     end
   end
 
   def computer_results(coordinate)
     if @game.player_board.cells[coordinate].render_miss?
-      puts "My shot on #{coordinate} was a miss."
+      puts "My shot on #{coordinate} was a miss. But it is only a matter of time before I find you."
     elsif @game.player_board.cells[coordinate].render_hit?
       if @game.player_board.cells[coordinate].render_sunk?
-        puts "My shot on #{coordinate} sunk your ship."
+        puts "My shot on #{coordinate} sunk your ship. As I expected. Do you wish to give up?"
       else
-        puts "My shot on #{coordinate} was a hit."
+        puts "My shot on #{coordinate} was a hit. But it was no Tubthumping, more like a pre-released Mariah Carey single. In that I will keep hitting you."
       end
     end
   end
@@ -90,10 +90,8 @@ class Turn
 
   def end_game_check?
     if player_sunk_check?
-      end_game
       return true
     elsif computer_sunk_check?
-      end_game
       return true
     else
       return false
@@ -101,9 +99,9 @@ class Turn
   end
   def end_game
     if player_sunk_check?
-      puts "You won!"
-    elsif computer_sunk_check?
       puts "I won. Easily."
+    elsif computer_sunk_check?
+      puts "You won!"
     end
   end
 end
