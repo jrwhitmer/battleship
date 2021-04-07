@@ -47,15 +47,15 @@ puts "Enter the coordinate for your shot:"
 turn.player_shot(gets.chomp)
 turn.computer_shot
 
-# while end_game_check? == false
+while turn.end_game_check? == false do
 turn.display_boards
 
 puts "Enter the coordinate for your shot:"
 
 turn.player_shot(gets.chomp)
 turn.computer_shot
-# turn = Turn.new
-# end
+turn = Turn.new
+end
 
 turn.end_game
 

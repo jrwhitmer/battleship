@@ -7,6 +7,7 @@ class Game
 
   attr_reader :player_board,
               :computer_board
+
   def initialize
     @turns = []
     @player_board = Board.new
