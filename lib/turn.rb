@@ -24,12 +24,13 @@ class Turn
       coordinate = gets.chomp
     end
       @game.computer_board.cells[coordinate].fire_upon
-    #if cruiser_sunk_check? && submarine_sunk_check?
-      #end_game
-    #elsif cruiser_sunk_check? || submarine_sunk_check?
-      #"You sunk a ship! Never again."
-    #end
     player_results(coordinate)
+    # if cruiser_sunk_check? || submarine_sunk_check?
+      # "You sunk a ship! Never again."
+    # end
+    # if end_game_check?
+      # end_game
+    # end
   end
 
   def computer_shot
@@ -41,6 +42,8 @@ class Turn
       coordinate = coordinate.join
     end
     @game.player_board.cells[coordinate].fire_upon
+
+    computer_results(coordinate)
   end
 
   def player_results(coordinate)
@@ -55,7 +58,29 @@ class Turn
     end
   end
 
-  def computer_results
+  def computer_results(coordinate)
+    if @game.player_board.cells[coordinate].render_miss?
+      puts "My shot on #{coordinate} was a miss."
+    elsif @game.player_board.cells[coordinate].render_hit?
+      if @game.player_board.cells[coordinate].sunk?
+        puts "My shot on #{coordinate} sunk your ship."
+      else
+        puts "My shot on #{coordinate} was a hit."
+      end
+    end
+  end
 
+  # def player_sunk_check?
+    # if @game.player_board.cells[coordinate].sunk?
+  # end
+  # def end_game_check?
+    # if player_sunk_check?
+      # end_game
+    # elsif computer_sunk_check?
+      # end_game
+    # end
+  # end
+  def end_game
+    puts "Somebody won."
   end
 end

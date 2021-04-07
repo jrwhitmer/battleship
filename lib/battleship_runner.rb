@@ -44,10 +44,22 @@ turn.display_boards
 
 puts "I will generously let you take the first shot."
 puts "Enter the coordinate for your shot:"
-
 turn.player_shot(gets.chomp)
 turn.computer_shot
 
+# while end_game_check? == false
+turn.display_boards
+
+puts "Enter the coordinate for your shot:"
+
+turn.player_shot(gets.chomp)
+turn.computer_shot
+# turn = Turn.new
+# end
+
+turn.end_game
+
+# We will need for the end game; a conditional if both of one players ships are sunk, the end game is triggered and it will return You won or I won!
 
 
 end
