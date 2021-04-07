@@ -42,6 +42,14 @@ puts "Prepare to lose."
 
 turn.display_boards
 
+puts "I will generously let you take the first shot."
+puts "Enter the coordinate for your shot:"
+
+turn.player_shot(gets.chomp)
+turn.computer_shot
+
+
+
 end
 
 
