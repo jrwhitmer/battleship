@@ -16,7 +16,6 @@ class Game
 
   def main_menu?(input)
     if input == "q"
-      # add functionality for an are you sure?
       puts "Goodbye."
       return false
     elsif input == "p"
@@ -30,8 +29,7 @@ class Game
 
   def player_place_cruiser(cruiser, coordinates)
     coordinates = coordinates.split
-    # Why does this print "This is not a valid placement" when condition is not true?
-    while @player_board.place(cruiser, coordinates) == "This is not a valid placement for this ship!"
+    while @player_board.valid_placement?(cruiser, coordinates) == false
       puts "Those are invalid coordinates. Please try again."
       coordinates = gets.chomp
       coordinates = coordinates.split
@@ -42,7 +40,7 @@ class Game
 
   def player_place_submarine(submarine, coordinates)
     coordinates = coordinates.split
-    while @player_board.place(submarine, coordinates) == "This is not a valid placement for this ship!"
+    while @player_board.valid_placement?(submarine, coordinates) == false
       puts "Those are invalid coordinates. Please try again."
       coordinates = gets.chomp
       coordinates = coordinates.split
@@ -51,33 +49,32 @@ class Game
     display_player_board_for_player
   end
 
+# optional hard code coordinates for swift endgame testing
+  # def computer_place_cruiser(cruiser)
+    # coordinates = ["D2", "D3", "D4"]
+    # @computer_board.place(cruiser, coordinates)
+  # end
+
+  # def computer_place_submarine(submarine)
+    # coordinates = ["B3", "C3"]
+    # @computer_board.place(submarine, coordinates)
+  # end
+
   def computer_place_cruiser(cruiser)
-    coordinates = ["D2", "D3", "D4"]
+    coordinates =  @computer_board.cells.keys.sample(3)
+    while @computer_board.valid_placement?(cruiser, coordinates) == false
+    coordinates = @computer_board.cells.keys.sample(3)
+    end
     @computer_board.place(cruiser, coordinates)
-  end
+ end
 
   def computer_place_submarine(submarine)
-    coordinates = ["B3", "C3"]
-    @computer_board.place(submarine, coordinates)
+   coordinates =  @computer_board.cells.keys.sample(2)
+   while @computer_board.valid_placement?(submarine, coordinates) == false
+   coordinates = @computer_board.cells.keys.sample(2)
+   end
+   @computer_board.place(submarine, coordinates)
   end
-
-  #def computer_place_cruiser(cruiser)
-    #coordinates =  @computer_board.cells.keys.sample(3)
-    #while @computer_board.place(cruiser, coordinates) == "This is not a valid placement #for this ship!"
-    #coordinates = @computer_board.cells.keys.sample(3)
-    #end
-    #@computer_board.place(cruiser, coordinates)
-    #puts @computer_board.render(true)
-#  end
-
-  #def computer_place_submarine(submarine)
-  #  coordinates =  @computer_board.cells.keys.sample(2)
-  #  while @computer_board.place(submarine, coordinates) == "This is not a valid #placement for this ship!"
-  #  coordinates = @computer_board.cells.keys.sample(2)
-  #  end
-  #  @computer_board.place(submarine, coordinates)
-  #  puts @computer_board.render(true)
-  #end
 
   def display_player_board_for_player
     puts @player_board.render(true)
