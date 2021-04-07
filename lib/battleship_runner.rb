@@ -1,6 +1,8 @@
 require './lib/game'
+require './lib/turn'
 
-game = Game.new
+#game = Game.new
+turn = Turn.new
 player_cruiser = Ship.new("Cruiser", 3)
 player_submarine = Ship.new("Submarine", 2)
 computer_cruiser = Ship.new("Cruiser", 3)
@@ -10,10 +12,10 @@ puts "Welcome to BATTLESHIP!!!"
 puts "Enter p to play. Enter q to quit forever."
 
 
-if game.main_menu?(gets.chomp)
+if turn.game.main_menu?(gets.chomp)
 
-#game.computer_place_cruiser(computer_cruiser, coordinates)
-#game.computer_place_submarine(computer_submarine, coordinates)
+turn.game.computer_place_cruiser(computer_cruiser)
+turn.game.computer_place_submarine(computer_submarine)
 
 puts "I have laid out my ships on the grid."
 puts "You now need to lay out your two ships."
@@ -30,13 +32,15 @@ puts "  1 2 3 4 \n" +
 puts "Enter the squares for the Cruiser (3 spaces), so I may destroy you more promptly:"
 puts "Please enter in the following format: Ex: A1 A2 A3"
 
-game.player_place_cruiser(player_cruiser, gets.chomp)
+turn.game.player_place_cruiser(player_cruiser, gets.chomp)
 
 puts "Enter the squares for the submarine (2 spaces) in the same format:"
 
-game.player_place_submarine(player_submarine, gets.chomp)
+turn.game.player_place_submarine(player_submarine, gets.chomp)
 
 puts "Prepare to lose."
+
+turn.display_boards
 
 end
 

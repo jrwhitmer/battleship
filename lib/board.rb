@@ -27,12 +27,35 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
+  def same_letters?(ship, coordinates)
+    ordinate_values = coordinates.map do |coordinate|
+      coordinate.ord
+    end
+    ordinate_values.all? do |value|
+      value == 65 || 66 || 67 || 68
+    end
+  end
+
+  def same_numbers?(ship, coordinates)
+    grab_numbers_from_coordinates(coordinates)
+    @coordinate_numbers.all? do |number|
+      number == 1 || 2 || 3 || 4
+    end
+  end
+
   def consecutive_letters?(ship, coordinates)
     ordinate_values = coordinates.map do |coordinate|
       coordinate.ord
     end
-    ordinate_values.each_cons(ship.length).all? do |coordinate, next_coordinate|
-      next_coordinate == coordinate + 1
+    if ship.length == 2
+      ordinate_values.each_cons(2).all? do |coordinate, next_coordinate|
+        next_coordinate == coordinate + 1
+      end
+    elsif ship.length == 3
+      ordinate_values.each_cons(3).all? do |coordinate, next_coordinate, last_coordinate|
+        next_coordinate == coordinate + 1
+        last_coordinate == next_coordinate + 1
+      end
     end
   end
 
@@ -67,12 +90,32 @@ class Board
   end
 
   def consecutive?(ship, coordinates)
-    consecutive_letters?(ship, coordinates) || consecutive_numbers?(ship, coordinates)
+    if consecutive_letters?(ship, coordinates) == false && consecutive_numbers?(ship, coordinates)
+      if same_letters?(ship, coordinates)
+        true
+      else
+        false
+      end
+    elsif consecutive_letters?(ship, coordinates) && consecutive_numbers?(ship, coordinates) == false
+      if same_numbers?(ship, coordinates)
+        true
+      else
+        false
+      end
+    else
+      false
+    end
   end
 
   def not_diagonal?(ship, coordinates)
     if consecutive_letters?(ship, coordinates) && consecutive_numbers?(ship, coordinates)
       false
+    elsif consecutive_numbers?(ship, coordinates) && consecutive_letters?(ship, coordinates) == false
+      if same_letters?(ship, coordinates)
+        true
+      else
+        false
+      end
     else
       true
     end
@@ -99,7 +142,6 @@ class Board
         cells[coordinate].place_ship(ship)
       end
     else
-      puts "This is not a valid placement for this ship!"
       "This is not a valid placement for this ship!"
     end
   end

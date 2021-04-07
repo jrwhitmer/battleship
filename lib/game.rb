@@ -31,7 +31,7 @@ class Game
     coordinates = coordinates.split
     # Why does this print "This is not a valid placement" when condition is not true?
     while @player_board.place(cruiser, coordinates) == "This is not a valid placement for this ship!"
-      puts "Try again."
+      puts "Those are invalid coordinates. Please try again."
       coordinates = gets.chomp
       coordinates = coordinates.split
     end
@@ -42,7 +42,7 @@ class Game
   def player_place_submarine(submarine, coordinates)
     coordinates = coordinates.split
     while @player_board.place(submarine, coordinates) == "This is not a valid placement for this ship!"
-      puts "Try again."
+      puts "Those are invalid coordinates. Please try again."
       coordinates = gets.chomp
       coordinates = coordinates.split
     end
@@ -50,17 +50,33 @@ class Game
     display_player_board_for_player
   end
 
-  def computer_place_cruiser(cruiser, coordinates)
-    cruiser = Ship.new("Cruiser", 3)
-    until coordinates.board.valid_placement?
-    coordinates = @computer_board.cells.keys.sample(3)
-    end
+  def computer_place_cruiser(cruiser)
+    coordinates = ["D2", "D3", "D4"]
     @computer_board.place(cruiser, coordinates)
   end
 
-  def computer_place_submarine(submarine, coordinates)
-
+  def computer_place_submarine(submarine)
+    coordinates = ["B3", "C3"]
+    @computer_board.place(submarine, coordinates)
   end
+
+  #def computer_place_cruiser(cruiser)
+    #coordinates =  @computer_board.cells.keys.sample(3)
+    #while @computer_board.place(cruiser, coordinates) == "This is not a valid placement #for this ship!"
+    #coordinates = @computer_board.cells.keys.sample(3)
+    #end
+    #@computer_board.place(cruiser, coordinates)
+    #puts @computer_board.render(true)
+#  end
+
+  #def computer_place_submarine(submarine)
+  #  coordinates =  @computer_board.cells.keys.sample(2)
+  #  while @computer_board.place(submarine, coordinates) == "This is not a valid #placement for this ship!"
+  #  coordinates = @computer_board.cells.keys.sample(2)
+  #  end
+  #  @computer_board.place(submarine, coordinates)
+  #  puts @computer_board.render(true)
+  #end
 
   def display_player_board_for_player
     puts @player_board.render(true)
