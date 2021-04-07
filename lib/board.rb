@@ -1,4 +1,4 @@
-require './cell'
+require './lib/cell'
 class Board
   attr_reader :cells
 
@@ -27,12 +27,35 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
+  def same_letters?(ship, coordinates)
+    ordinate_values = coordinates.map do |coordinate|
+      coordinate.ord
+    end
+    ordinate_values.all? do |value|
+      value == 65 || 66 || 67 || 68
+    end
+  end
+
+  def same_numbers?(ship, coordinates)
+    grab_numbers_from_coordinates(coordinates)
+    @coordinate_numbers.all? do |number|
+      number == 1 || 2 || 3 || 4
+    end
+  end
+
   def consecutive_letters?(ship, coordinates)
     ordinate_values = coordinates.map do |coordinate|
       coordinate.ord
     end
-    ordinate_values.each_cons(ship.length).all? do |coordinate, next_coordinate|
-      next_coordinate == coordinate + 1
+    if ship.length == 2
+      ordinate_values.each_cons(2).all? do |coordinate, next_coordinate|
+        next_coordinate == coordinate + 1
+      end
+    elsif ship.length == 3
+      ordinate_values.each_cons(3).all? do |coordinate, next_coordinate, last_coordinate|
+        next_coordinate == coordinate + 1
+        last_coordinate == next_coordinate + 1
+      end
     end
   end
 
@@ -67,12 +90,32 @@ class Board
   end
 
   def consecutive?(ship, coordinates)
-    consecutive_letters?(ship, coordinates) || consecutive_numbers?(ship, coordinates)
+    if consecutive_letters?(ship, coordinates) == false && consecutive_numbers?(ship, coordinates)
+      if same_letters?(ship, coordinates)
+        true
+      else
+        false
+      end
+    elsif consecutive_letters?(ship, coordinates) && consecutive_numbers?(ship, coordinates) == false
+      if same_numbers?(ship, coordinates)
+        true
+      else
+        false
+      end
+    else
+      false
+    end
   end
 
   def not_diagonal?(ship, coordinates)
     if consecutive_letters?(ship, coordinates) && consecutive_numbers?(ship, coordinates)
       false
+    elsif consecutive_numbers?(ship, coordinates) && consecutive_letters?(ship, coordinates) == false
+      if same_letters?(ship, coordinates)
+        true
+      else
+        false
+      end
     else
       true
     end
@@ -86,7 +129,6 @@ class Board
   end
 
   def valid_length?(ship, coordinates)
-    # why can't we access the instance variable itself-- @length here?
     ship.length == coordinates.length
   end
 
@@ -105,14 +147,13 @@ class Board
   end
 
   def render(visibility = false)
-    #Why does visibility need to be the initial statement with visibility = false to follow? (gave errors when reversed)
     if visibility
       "  1 2 3 4 \n" +
       "A  #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)} \n" +
       "B  #{@cells["B1"].render(true)} #{@cells["B2"].render(true)} #{@cells["B3"].render(true)} #{@cells["B4"].render(true)} \n" +
       "C  #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)} \n" +
       "D  #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)} \n"
-    else visibility = false
+    else
       "  1 2 3 4 \n" +
       "A  #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n" +
       "B  #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
