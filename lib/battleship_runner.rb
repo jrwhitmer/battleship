@@ -21,7 +21,7 @@ puts "I have laid out my ships on the grid."
 puts "You now need to lay out your two ships."
 puts "The cruiser is three units long and the Submarine is two units long."
 puts "I know because I created them."
-puts "Here is a visual representation of your board."
+puts "Here is a visual representation of your board, human."
 
 puts "  1 2 3 4 \n" +
      "A  . . . . \n" +
@@ -30,7 +30,7 @@ puts "  1 2 3 4 \n" +
      "D  . . . . \n"
 
 puts "Enter the squares for the Cruiser (3 spaces), so I may destroy you more promptly:"
-puts "Please enter in the following format: Ex: A1 A2 A3"
+puts "Please enter in the following format: Ex: A1 A2 A3. I will accept no deviations."
 
 turn.game.player_place_cruiser(player_cruiser, gets.chomp)
 
@@ -54,7 +54,7 @@ puts "Enter the coordinate for your shot:"
 
 turn.player_shot(gets.chomp)
 turn.computer_shot
-turn = Turn.new
+
 end
 
 turn.end_game
