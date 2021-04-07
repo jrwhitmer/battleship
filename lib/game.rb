@@ -66,7 +66,6 @@ class Game
     coordinates = @computer_board.cells.keys.sample(3)
     end
     @computer_board.place(cruiser, coordinates)
-    puts @computer_board.render(true)
  end
 
   def computer_place_submarine(submarine)
@@ -75,7 +74,6 @@ class Game
    coordinates = @computer_board.cells.keys.sample(2)
    end
    @computer_board.place(submarine, coordinates)
-   puts @computer_board.render(true)
   end
 
   def display_player_board_for_player
